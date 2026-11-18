@@ -14,6 +14,6 @@ Accessed 2026-11-18 using publicly readable EDGAR HTML. Shell download in the re
 
 [Definitive proxy](https://www.sec.gov/Archives/edgar/data/1829864/000119312525176997/d111106ddefm14a.htm) · [May 8 Evercore slides](https://www.sec.gov/Archives/edgar/data/1829864/000119312525153528/d947061dex99cix.htm)
 
-The ledger in [screening.csv](screening.csv) distinguishes eligible deals with an unfinished input audit from out-of-frame candidates. A field missing from a proxy summary can be present in an exhibit. No claim of complete disclosure coverage is made for deals awaiting an exhibit search.
+The [screening log](screening.csv) records eligibility and whether the available inputs supported a per-share calculation. The [cross-deal source ledger](CROSS_DEAL.md) lists the specific proxy, supplemental disclosure or adviser exhibit reviewed for each eligible deal. The results apply to those documents.
 
 The exploratory working-capital sensitivity uses terminal_revenue ($1,567m / $867m) and the 14% working-capital-to-revenue-change convention from exhibit pp. 18–19 and related forecast tables.
