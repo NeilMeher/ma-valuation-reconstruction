@@ -1,6 +1,6 @@
 # M&A Valuation Reconstruction
 
-Can an outside reader reproduce Evercore’s valuation of TaskUs from public filings? This release reconstructs both forecast cases for the proposed 2025 cash take-private. It also documents the initial cross-deal screen.
+Can an outside reader reproduce a merger adviser’s valuation from public filings? This study reconstructs both TaskUs forecast cases and audits eight eligible cash deals. Three supported a per-share reconstruction using public inputs. Five disclosures left material gaps.
 
 | TaskUs forecast | Reconstructed range | Published range | Endpoint errors |
 |---|---:|---:|---:|
@@ -22,7 +22,7 @@ python -m unittest -v
 python study.py
 ```
 
-The small [input table](inputs.csv) is the full TaskUs pilot fixture. Run the study to regenerate [results.json](results.json) and the heatmap. The [source register](SOURCES.md) gives the filing and slide locators for checking or re-entering each value. [checks.csv](checks.csv) stores benchmarks separately from the model inputs.
+The small [input table](inputs.csv) is the full TaskUs pilot fixture. Run the study to regenerate [results.json](results.json), the heatmap, and the [cross-deal calculations](cross_deal.json). The [source register](SOURCES.md) and [cross-deal table](CROSS_DEAL.md) give the filing and slide locators. Benchmark tables store the adviser checks separately from the model inputs.
 
 ## Do the midpoint by hand
 
@@ -33,4 +33,4 @@ The small [input table](inputs.csv) is the full TaskUs pilot fixture. Run the st
 
 ## Scope and credit
 
-The [protocol](PROTOCOL.md) and [experiment log](EXPERIMENT.md) describe the design and verification. The cross-deal screen is incomplete and the measured results cover TaskUs alone. Neil Meher commissioned the work and set the research, verification, and publication requirements. Codex assembled the filing inputs, built the model and figures, and ran the documented checks. Neil’s independent filing review and timing judgment are pending.
+The [pilot protocol](PROTOCOL.md), [expansion protocol](EXPANSION.md) and [experiment log](EXPERIMENT.md) describe the design and verification. The eight deals form a purposive sample. Neil Meher commissioned the work and set the research, verification, and publication requirements. Codex assembled the filing inputs, built the model and figures, and ran the documented checks. Neil’s independent filing review and timing judgment are pending.

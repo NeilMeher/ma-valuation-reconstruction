@@ -12,4 +12,4 @@ jobs:
           python-version: '3.14'
       - run: python -m unittest -v
       - run: python study.py
-      - run: git diff --exit-code -- results.json heatmap.svg
+      - run: git diff --exit-code -- results.json heatmap.svg cross_deal.json

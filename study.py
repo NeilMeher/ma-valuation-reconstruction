@@ -12,6 +12,14 @@ def read(name):
                 for row in csv.DictReader(file)}
 
 
+def present_value(amount, rate, years):
+    return amount / (1 + rate) ** years
+
+
+def discounted_flows(flows, times, rate):
+    return sum(present_value(flow, rate, time) for flow, time in zip(flows, times, strict=True))
+
+
 def valuation(data, wacc, terminal, method="growth", *, midyear=True, stub=1.0, terminal_nwc=False):
     """Return the separate PV and EV-to-equity bridge, in USD millions."""
     if not 0 < stub <= 1 or wacc <= -1 or data["shares"] <= 0:
@@ -20,7 +28,7 @@ def valuation(data, wacc, terminal, method="growth", *, midyear=True, stub=1.0, 
     flows[0] *= stub
     times = [stub / 2 if midyear else stub]
     times += [stub + i - (0.5 if midyear else 0) for i in range(1, 5)]
-    forecast_pv = sum(flow / (1 + wacc) ** time for flow, time in zip(flows, times))
+    forecast_pv = discounted_flows(flows, times, wacc)
     if method == "growth":
         if not -1 < terminal < wacc:
             raise ValueError("Perpetuity growth must be above -100% and below WACC")
@@ -81,6 +89,44 @@ def report(cases, checks):
     return rounded(result)
 
 
+def cross_deal_report(inputs, checks):
+    result = {}
+    for check in checks:
+        target = check["target"]
+        published = [float(check["adviser_low"]), float(check["adviser_high"])]
+        row = {"published": published}
+        data = inputs.get(target)
+        if data is not None and "flows" in data:
+            scenarios = {"baseline": [], "alternate_forecast_timing": [], "alternate_terminal_timing": []}
+            for wacc, assumption in zip(reversed(data["wacc"]), data["terminal"], strict=True):
+                base = data["terminal_base"]
+                term = (base * (1 + assumption) / (wacc - assumption)
+                        if data["method"] == "growth" else base * assumption)
+                timing = (
+                    ("baseline", data["times"], data["terminal_time"]),
+                    ("alternate_forecast_timing", data["alternate_times"], data["terminal_time"]),
+                    ("alternate_terminal_timing", data["times"], data["alternate_terminal_time"]),
+                )
+                for scenario, times, terminal_time in timing:
+                    forecast_pv = discounted_flows(data["flows"], times, wacc)
+                    terminal_pv = present_value(term, wacc, terminal_time)
+                    equity = forecast_pv + terminal_pv + data["bridge"]
+                    scenarios[scenario].append(equity / data["shares"])
+            row.update(scenarios)
+            row["gaps"] = [model - external for model, external in zip(scenarios["baseline"], published)]
+        elif data is not None:
+            row["terminal_enterprise_value_usd_m"] = [
+                data["terminal_base"] * multiple for multiple in data["terminal"]
+            ]
+            if "terminal_time" in data:
+                row["discounted_terminal_ev_usd_m"] = [
+                    present_value(amount, rate, data["terminal_time"])
+                    for amount, rate in zip(row["terminal_enterprise_value_usd_m"], reversed(data["wacc"]))
+                ]
+        result[target] = row
+    return rounded(result)
+
+
 def chart(cases, checks):
     parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="920" height="448" viewBox="0 0 920 448" role="img">',
              '<title>TaskUs implied value by WACC and terminal growth</title>',
@@ -138,3 +184,7 @@ if __name__ == "__main__":
     results = json.dumps(report(cases, checks), indent=2) + "\n"
     (ROOT / "results.json").write_text(results, encoding="utf-8")
     print(results, end="")
+    cross_inputs = json.loads((ROOT / "cross_inputs.json").read_text(encoding="utf-8"))
+    with (ROOT / "cross_checks.csv").open(newline="", encoding="utf-8") as file:
+        cross_results = cross_deal_report(cross_inputs, csv.DictReader(file))
+    (ROOT / "cross_deal.json").write_text(json.dumps(cross_results, indent=2) + "\n", encoding="utf-8")

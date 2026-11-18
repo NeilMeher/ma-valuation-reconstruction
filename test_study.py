@@ -1,6 +1,8 @@
+import csv
+import json
 import unittest
 
-from study import endpoints, read, valuation
+from study import ROOT, cross_deal_report, endpoints, read, valuation
 
 
 class DCFTests(unittest.TestCase):
@@ -34,3 +36,12 @@ class DCFTests(unittest.TestCase):
         self.assertNotEqual(endpoints(self.a, "growth"), endpoints(self.a, "growth", stub=.75))
         self.assertGreater(endpoints(self.a, "growth")[0],
                            endpoints(self.a, "growth", midyear=False)[0])
+
+    def test_cross_deal_reconstruction_and_partial_disclosure(self):
+        inputs = json.loads((ROOT / "cross_inputs.json").read_text(encoding="utf-8"))
+        with (ROOT / "cross_checks.csv").open(newline="", encoding="utf-8") as file:
+            report = cross_deal_report(inputs, csv.DictReader(file))
+        self.assertLess(max(map(abs, report["Startek"]["gaps"])), .02)
+        self.assertGreater(report["Sykes"]["gaps"][1], 2)
+        self.assertNotIn("gaps", report["Thoughtworks"])
+        self.assertEqual(report["CTG"]["terminal_enterprise_value_usd_m"], [164.71, 190.05])

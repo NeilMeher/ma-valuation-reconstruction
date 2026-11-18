@@ -1,0 +1,116 @@
+{
+  "Startek": {
+    "method": "growth",
+    "flows": [
+      4.1,
+      17.1,
+      18.7,
+      20,
+      21.7,
+      23.3
+    ],
+    "times": [
+      0.1123287671,
+      0.7205479452,
+      1.7205479452,
+      2.7205479452,
+      3.7205479452,
+      4.7205479452
+    ],
+    "alternate_times": [
+      0.25,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "terminal_time": 4.7205479452,
+    "alternate_terminal_time": 5.2205479452,
+    "terminal_base": 20.3,
+    "wacc": [
+      0.11,
+      0.13
+    ],
+    "terminal": [
+      0.01,
+      0.03
+    ],
+    "bridge": -42.9,
+    "shares": 40.4
+  },
+  "Sykes": {
+    "method": "multiple",
+    "flows": [
+      45,
+      120,
+      131,
+      143,
+      157
+    ],
+    "times": [
+      0.375,
+      1.25,
+      2.25,
+      3.25,
+      4.25
+    ],
+    "alternate_times": [
+      0.75,
+      1.75,
+      2.75,
+      3.75,
+      4.75
+    ],
+    "terminal_time": 4.75,
+    "alternate_terminal_time": 4.25,
+    "terminal_base": 295,
+    "wacc": [
+      0.08,
+      0.09
+    ],
+    "terminal": [
+      7,
+      9
+    ],
+    "bridge": 65,
+    "shares": 41
+  },
+  "Thoughtworks": {
+    "method": "multiple",
+    "terminal_base": 288,
+    "terminal": [
+      9.5,
+      14.5
+    ]
+  },
+  "ManTech": {
+    "method": "multiple",
+    "terminal_base": 319,
+    "terminal": [
+      12.5,
+      16
+    ]
+  },
+  "Perspecta": {
+    "method": "multiple",
+    "terminal_base": 624,
+    "terminal": [
+      8.5,
+      10.5
+    ],
+    "wacc": [
+      0.0625,
+      0.0725
+    ],
+    "terminal_time": 5.25
+  },
+  "CTG": {
+    "method": "multiple",
+    "terminal_base": 25.34,
+    "terminal": [
+      6.5,
+      7.5
+    ]
+  }
+}

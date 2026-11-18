@@ -1,0 +1,96 @@
+{
+  "Startek": {
+    "published": [
+      3.19,
+      4.85
+    ],
+    "baseline": [
+      3.19586662,
+      4.86006583
+    ],
+    "alternate_forecast_timing": [
+      3.13434581,
+      4.80492188
+    ],
+    "alternate_terminal_timing": [
+      3.05506836,
+      4.65909396
+    ],
+    "gaps": [
+      0.00586662,
+      0.01006583
+    ]
+  },
+  "Sykes": {
+    "published": [
+      45.0,
+      56.0
+    ],
+    "baseline": [
+      46.64590454,
+      58.40222541
+    ],
+    "alternate_forecast_timing": [
+      46.16715243,
+      57.96334789
+    ],
+    "alternate_terminal_timing": [
+      48.11860845,
+      60.16477564
+    ],
+    "gaps": [
+      1.64590454,
+      2.40222541
+    ]
+  },
+  "Thoughtworks": {
+    "published": [
+      4.28,
+      7.85
+    ],
+    "terminal_enterprise_value_usd_m": [
+      2736.0,
+      4176.0
+    ]
+  },
+  "Perficient": {
+    "published": [
+      58.75,
+      90.5
+    ]
+  },
+  "ManTech": {
+    "published": [
+      73.0,
+      94.0
+    ],
+    "terminal_enterprise_value_usd_m": [
+      3987.5,
+      5104
+    ]
+  },
+  "Perspecta": {
+    "published": [
+      20.04,
+      26.89
+    ],
+    "terminal_enterprise_value_usd_m": [
+      5304.0,
+      6552.0
+    ],
+    "discounted_terminal_ev_usd_m": [
+      3672.97257745,
+      4765.92233074
+    ]
+  },
+  "CTG": {
+    "published": [
+      10.03,
+      11.6
+    ],
+    "terminal_enterprise_value_usd_m": [
+      164.71,
+      190.05
+    ]
+  }
+}
